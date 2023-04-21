@@ -55,11 +55,11 @@ function changeMode(e){
 }
 
 function renderCountries(countriesToRender) {
-    console.log('rendering countries ')
+    const currentMode = selectMode.getAttribute('data-mode').toLocaleLowerCase()
     let countryItems = '';
     countriesToRender.forEach( country => {
         countryItems += `
-            <div class="country-item flex bg-dark" data-country='${country.name}'>
+            <div class="country-item flex ${currentMode == 'dark' ? 'bg-dark' : 'bg-light'}" data-country='${country.name}'>
                 <img class="flag" src="${country.flags.png}" alt="${country.name}' flag">
                 <div class="country-details">
                     <h2 class="country-text">${country.name}</h2>
@@ -129,10 +129,7 @@ function renderCountryInfo(countryName, beforeState){
                 <div class="borders flex">
                     <p>Border Countries: </p>
 
-                    ${country.borders.map(border => {
-                        const borderCountry = data.find(country => country.alpha3Code == border)
-                        return `<button class='country-btn bg-dark' data-country='${borderCountry.name}'>${borderCountry.name}</button>`
-                    }).join('')}
+                    ${getBordersButtons(country)}
                 </div>
             </div>
         </div>
@@ -153,6 +150,17 @@ function renderCountryInfo(countryName, beforeState){
    })
 
 
+}
+
+function getBordersButtons(country){
+    if (country.borders) {
+        return country.borders.map(border => {
+            const borderCountry = data.find(country => country.alpha3Code == border)
+            return `<button class='country-btn bg-dark' data-country='${borderCountry.name}'>${borderCountry.name}</button>`
+        }).join('')
+    }
+    
+    return `${country.name} does not have border countries`
 }
 
 renderCountries(data.slice(0, 20))
