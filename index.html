@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Countries - Frontend Mentor</title>
+</head>
+<body class="dark-body">
+
+    <!-- PRIMARY STRUCTURE FINISHED -->
+    <header class="primary-header flex bg-dark">
+        <h1 class="section-title">Where in the world?</h1>
+        <div class="select-mode flex" id="select-mode" data-mode="dark">
+            <span class="sr-only">Button to change light mode</span>
+            <img class="mode-icon" id='mode-icon' src="./assets/icons/sun-solid.svg" alt="mood">
+            <p id="mode-text">Light mode</p>
+        </div>
+    </header>
+
+    <main>
+        <form id="search-country-form" class="search-country-form flex sections-spacing">
+            <div class="search-bar flex bg-dark">
+                <img id="search-icon" class="search-icon" src="./assets/icons/magnifying-glass-solid.svg" alt="search icon for the search bar">
+                <input id="search-input" class="search-input bg-dark" type="text" name="country" placeholder="Search for a country..." >
+            </div>
+    
+            <select name="region" id="filter-input" class="search-input bg-dark" >
+                <option value="" >Filter by Region</option>
+                <option value="Africa">Africa</option>
+                <option value="Americas">America</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Oceania">Oceania</option>
+            </select>
+        </form>
+    
+        <section id="countries" class="countries grid sections-spacing ">
+    
+            <!-- <div class="country-item flex bg-dark">
+                <img class="flag" src="" alt="">
+                <div class="country-details">
+                    <h2 class="country-text">Mexico</h2>
+                    <p> <span class="detail">Population</span>: 130,000,000</p>
+                    <p> <span class="detail">Region</span>: Americas</p>
+                    <p> <span class="detail">Capital</span>: Mexico  City</p>
+                </div>
+            </div> -->
+
+            <!-- <section class="country-info sections-spacing">
+                <button class="back flex bg-dark">
+                    <img class="back-icon" src="./assets/icons/arrow-left-solid.svg" alt="go back button">
+                    Back
+                </button>
+
+                <div class="country flex sections-spacing">
+                    <img src="https://flagcdn.com/w320/mx.png" alt="Mexico flag">
+                    <div class="country-details flex">
+                        <h2 class="country-text">Mexico</h2>
+                        <div class="primary-details flex">
+                            <div>
+                                <p> <span class="detail">Native Name</span>: Mechico</p>
+                                <p> <span class="detail">Population</span>: 130,000,000</p>
+                                <p> <span class="detail">Region</span>: Americas</p>
+                                <p> <span class="detail">Aub Region</span>: North America</p>
+                                <p> <span class="detail">Capital</span>: Mexico  City</p>
+                            </div>
+
+                            <div>
+                                <p> <span class="detail">Top Level Domain</span>: .do</p>
+                                <p> <span class="detail">Currencies</span>: MNX peso</p>
+                                <p> <span class="detail">Languages</span>: Spanish</p>
+                            </div>
+                        </div>
+
+                        <div class="borders flex">
+                            <p>Border Countries: </p>
+                            <button class='country-btn bg-dark'>USA</button>
+                            <button class='country-btn bg-dark'>Guatemala</button>
+                            <button class='country-btn bg-dark'>Belize</button>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+    
+        </section>
+
+        <section id="country-info" class="country-info sections-spacing">
+
+        </section>
+    </main>
+
+    <script src="./index.js" type="module"></script>
+</body>
+</html>
