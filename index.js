@@ -17,9 +17,14 @@ selectMode.addEventListener('click', changeMode)
 filterInput.addEventListener('change', filterByRegion)
 searchIcon.addEventListener('click', searchCountry)
 
+// const currentMode = selectMode.getAttribute('data-mode').toLocaleLowerCase()
+
+function getCurrentMode() {
+    return selectMode.getAttribute('data-mode').toLocaleLowerCase()
+}
+
 function changeMode(e){
-    const currentMode = selectMode.getAttribute('data-mode').toLocaleLowerCase()
-    if (currentMode == 'dark'){
+    if (getCurrentMode() == 'dark'){
         //* Change background colors
         const bgDarkElements = document.querySelectorAll('.bg-dark')
         bgDarkElements.forEach(element => element.classList.replace('bg-dark', 'bg-light'))
@@ -37,7 +42,7 @@ function changeMode(e){
 
         
 
-    } else if (currentMode == 'light'){
+    } else if (getCurrentMode() == 'light'){
         const bgLightElements = document.querySelectorAll('.bg-light')
         bgLightElements.forEach(element => element.classList.replace('bg-light', 'bg-dark'))
         //TODO: Find an more optimal way of doing this part
@@ -55,11 +60,11 @@ function changeMode(e){
 }
 
 function renderCountries(countriesToRender) {
-    const currentMode = selectMode.getAttribute('data-mode').toLocaleLowerCase()
+    
     let countryItems = '';
     countriesToRender.forEach( country => {
         countryItems += `
-            <div class="country-item flex ${currentMode == 'dark' ? 'bg-dark' : 'bg-light'}" data-country='${country.name}'>
+            <div class="country-item flex ${getCurrentMode() == 'dark' ? 'bg-dark' : 'bg-light'}" data-country='${country.name}'>
                 <img class="flag" src="${country.flags.png}" alt="${country.name}' flag">
                 <div class="country-details">
                     <h2 class="country-text">${country.name}</h2>
@@ -101,7 +106,7 @@ function renderCountryInfo(countryName, beforeState){
     const country = data.find(country => country.name == countryName)
     countryInfo.innerHTML = `
     
-        <button id='back' class="back flex bg-dark">
+        <button id='back' class="back flex ${getCurrentMode() == 'dark' ? 'bg-dark' : 'bg-light'}">
             <img class="back-icon" src="./assets/icons/arrow-left-solid.svg" alt="go back button">
             Back
         </button>
@@ -156,7 +161,7 @@ function getBordersButtons(country){
     if (country.borders) {
         return country.borders.map(border => {
             const borderCountry = data.find(country => country.alpha3Code == border)
-            return `<button class='country-btn bg-dark' data-country='${borderCountry.name}'>${borderCountry.name}</button>`
+            return `<button class='country-btn ${getCurrentMode() == 'dark' ? 'bg-dark' : 'bg-light'}' data-country='${borderCountry.name}'>${borderCountry.name}</button>`
         }).join('')
     }
     
