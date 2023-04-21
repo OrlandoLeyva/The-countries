@@ -333,10 +333,22 @@ main {
 }
 
 .country-btn {
+    margin-inline: 4px;
+}
+
+.back {
+    align-items: center;
+    color: var(--White);
+    gap: .8rem;
+}
+
+.back,
+.country-btn {
     border: none;
     cursor: pointer;
-    color: var(--White);
-    padding: .3rem 1rem;
-    margin-inline: 4px;
+    color: inherit;
+    padding: .3rem 1,3rem;
     border-radius: 5px;
+    box-shadow: 0 0 5px var(--Very-Dark);
+
 }

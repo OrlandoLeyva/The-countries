@@ -12,13 +12,12 @@ const modeText = document.getElementById('mode-text')
 const countriesSection = document.getElementById('countries')
 const searchInput = document.getElementById('search-input')
 const filterInput = document.getElementById('filter-input')
-console.log(countryInfo.innerText = 'country info here');
+
 selectMode.addEventListener('click', changeMode)
 filterInput.addEventListener('change', filterByRegion)
 searchIcon.addEventListener('click', searchCountry)
 
 function changeMode(e){
-    console.log('changing mode')
     const currentMode = selectMode.getAttribute('data-mode').toLocaleLowerCase()
     if (currentMode == 'dark'){
         //* Change background colors
@@ -35,6 +34,8 @@ function changeMode(e){
 
         modeIcon.src = './assets/icons/moon-regular.svg'
         modeText.textContent = 'Dark mode'
+
+        
 
     } else if (currentMode == 'light'){
         const bgLightElements = document.querySelectorAll('.bg-light')
