@@ -130,7 +130,7 @@ function renderCountryInfo(countryName, beforeState){
 
                     ${country.borders.map(border => {
                         const borderCountry = data.find(country => country.alpha3Code == border)
-                        return `<button class='country-btn bg-dark'>${borderCountry.name}</button>`
+                        return `<button class='country-btn bg-dark' data-country='${borderCountry.name}'>${borderCountry.name}</button>`
                     }).join('')}
                 </div>
             </div>
@@ -139,6 +139,10 @@ function renderCountryInfo(countryName, beforeState){
    `
    searchCountryForm.classList.add('hidden')
    countriesSection.classList.add('hidden')
+
+   document.querySelectorAll('.country-btn').forEach(countryBtn => countryBtn.addEventListener('click', (e)=>{
+        renderCountryInfo(e.target.getAttribute('data-country'), beforeState)
+   }))
 
    document.getElementById('back').addEventListener('click', ()=>{
     searchCountryForm.classList.remove('hidden')
