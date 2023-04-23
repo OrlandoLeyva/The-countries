@@ -17,6 +17,8 @@ selectMode.addEventListener('click', changeMode)
 filterInput.addEventListener('change', filterByRegion)
 searchIcon.addEventListener('click', searchCountry)
 
+let scrollPosition = window.scrollY
+
 // const currentMode = selectMode.getAttribute('data-mode').toLocaleLowerCase()
 
 function getCurrentMode() {
@@ -60,7 +62,6 @@ function changeMode(e){
 }
 
 function renderCountries(countriesToRender) {
-    
     let countryItems = '';
     countriesToRender.forEach( country => {
         countryItems += `
@@ -77,21 +78,20 @@ function renderCountries(countriesToRender) {
     })
 
     countriesSection.innerHTML = countryItems
+    window.scrollTo(0, scrollPosition);
     document.querySelectorAll('.country-item').forEach(countryItem => countryItem.addEventListener('click', (e)=>{
         e.stopPropagation()
         // The currentTarget property refers to the element to which the event listener was attached, which in your case is the father container.
-        renderCountryInfo(e.currentTarget.getAttribute('data-country'), countriesToRender)
+        renderCountryInfo(e.currentTarget.getAttribute('data-country'), countriesToRender, {setScroll:true})
     }))
 }
 
 function filterByRegion(){
-    console.log(filterInput.value);
     const filteredCountries = data.filter( country => country.region == filterInput.value)
     renderCountries(filteredCountries)
 }
 
 function searchCountry(){
-    console.log(searchInput.value.trim().toLocaleLowerCase());
     const foundCountry = data.find(country => country.name.toLocaleLowerCase() == searchInput.value.trim().toLocaleLowerCase())
     if (foundCountry) renderCountries([foundCountry])
     else anyResultFount()
@@ -102,7 +102,11 @@ function anyResultFount() {
 }
 
 
-function renderCountryInfo(countryName, beforeState){
+function renderCountryInfo(countryName, beforeState, options={}){
+    if (options.setScroll) setScrollPosition()
+    //! REMOVE CONSOLE.LOG
+    console.log(options.setScroll);
+    console.log(scrollPosition);
     const country = data.find(country => country.name == countryName)
     countryInfo.innerHTML = `
     
@@ -166,6 +170,11 @@ function getBordersButtons(country){
     }
     
     return `${country.name} does not have border countries`
+}
+
+function setScrollPosition(){
+    scrollPosition = window.scrollY
+    // return scrollPosition
 }
 
 renderCountries(data.slice(0, 20))
