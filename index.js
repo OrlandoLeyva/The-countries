@@ -18,8 +18,13 @@ filterInput.addEventListener('change', filterByRegion)
 searchIcon.addEventListener('click', searchCountry)
 
 let scrollPosition = window.scrollY
+const selectedCountries = []
 
-// const currentMode = selectMode.getAttribute('data-mode').toLocaleLowerCase()
+//*COUNTRIES NAVIGATION STATES
+let lastCountriesSectionState = []
+let firstCountry = null;
+let currentCountry = null;
+const visitedCountries = []
 
 function getCurrentMode() {
     return selectMode.getAttribute('data-mode').toLocaleLowerCase()
@@ -76,13 +81,18 @@ function renderCountries(countriesToRender) {
             </div>
         `
     })
-
     countriesSection.innerHTML = countryItems
     window.scrollTo(0, scrollPosition);
     document.querySelectorAll('.country-item').forEach(countryItem => countryItem.addEventListener('click', (e)=>{
         e.stopPropagation()
         // The currentTarget property refers to the element to which the event listener was attached, which in your case is the father container.
-        renderCountryInfo(e.currentTarget.getAttribute('data-country'), countriesToRender, {setScroll:true})
+        const renderCountryInfoOptions = {
+            setScroll:true,
+            firstCountry: true
+        }
+        lastCountriesSectionState = countriesToRender
+        visitedCountries.push(findCountry(e.currentTarget.getAttribute('data-country')))
+        renderCountryInfo(findCountry(e.currentTarget.getAttribute('data-country')), countriesToRender, renderCountryInfoOptions)
     }))
 }
 
@@ -91,7 +101,7 @@ function filterByRegion(){
     renderCountries(filteredCountries)
 }
 
-function searchCountry(){
+function searchCountry(e){
     const foundCountry = data.find(country => country.name.toLocaleLowerCase() == searchInput.value.trim().toLocaleLowerCase())
     if (foundCountry) renderCountries([foundCountry])
     else anyResultFount()
@@ -102,12 +112,14 @@ function anyResultFount() {
 }
 
 
-function renderCountryInfo(countryName, beforeState, options={}){
+function renderCountryInfo(country, beforeState, options={}){
     if (options.setScroll) setScrollPosition()
-    //! REMOVE CONSOLE.LOG
-    console.log(options.setScroll);
-    console.log(scrollPosition);
-    const country = data.find(country => country.name == countryName)
+
+    //* + Initialize the current country.
+    if (options.firstCountry) firstCountry = country
+    currentCountry = country
+    console.log(country);
+
     countryInfo.innerHTML = `
     
         <button id='back' class="back flex ${getCurrentMode() == 'dark' ? 'bg-dark' : 'bg-light'}">
@@ -148,14 +160,14 @@ function renderCountryInfo(countryName, beforeState, options={}){
    countriesSection.classList.add('hidden')
 
    document.querySelectorAll('.country-btn').forEach(countryBtn => countryBtn.addEventListener('click', (e)=>{
-        renderCountryInfo(e.target.getAttribute('data-country'), beforeState)
+        visitedCountries.push(findCountry(e.target.getAttribute('data-country')))
+        renderCountryInfo(findCountry(e.target.getAttribute('data-country')), beforeState)
    }))
 
    document.getElementById('back').addEventListener('click', ()=>{
-    searchCountryForm.classList.remove('hidden')
-    countriesSection.classList.remove('hidden')
-    countryInfo.innerHTML = ''
-    renderCountries(beforeState)
+    
+    goBack()
+    // renderCountries(beforeState)
    })
 
 
@@ -175,6 +187,31 @@ function getBordersButtons(country){
 function setScrollPosition(){
     scrollPosition = window.scrollY
     // return scrollPosition
+}
+
+function goBack() {
+    // Remove the current country from visited countries
+    
+    if (visitedCountries.length === 1) {
+        console.log('rendering all again');
+        visitedCountries.pop()
+        searchCountryForm.classList.remove('hidden')
+        countriesSection.classList.remove('hidden')
+        countryInfo.innerHTML = ''
+        renderCountries(lastCountriesSectionState)
+    } else {
+        console.log('rendering before country');
+        visitedCountries.pop()
+        // Render the before visited country
+        console.log(visitedCountries);
+        console.log(findCountry(visitedCountries[visitedCountries.length - 1].name), true);
+        renderCountryInfo(findCountry(visitedCountries[visitedCountries.length - 1].name))
+    }
+}
+
+function findCountry(countryName, validate=false){
+    if (validate) console.log(countryName);
+    return data.find(country => country.name == countryName)
 }
 
 renderCountries(data.slice(0, 20))

@@ -171,6 +171,9 @@ main {
     padding: 5px;
 }
 
+/**BUTTONS */
+
+/* Grab all the buttons here to add the primary styles */
 
   /** COMPONENTS */
 
@@ -184,7 +187,7 @@ main {
     display: none;
 }
 
-/* Search Form */
+/** SEARCH FORM */
 
 .search-input {
     color: inherit;
@@ -220,7 +223,8 @@ main {
 }
 
 .search-bar {
-    padding-right: 10rem;
+    /*! PADDING REMOVED TO TEST ALL COUNTRIES BUTTON */
+    /* padding-right: 10rem; */
     border-radius: 4px;
 }
 
@@ -237,6 +241,10 @@ main {
 
 .search-icon:active {
     transform: scale(.8);
+}
+
+.get-all-countries {
+    margin-left: auto;
 }
 
 /* COUNTRIES */
@@ -343,7 +351,8 @@ main {
 }
 
 .back,
-.country-btn {
+.country-btn,
+.get-all-countries {
     border: none;
     cursor: pointer;
     color: inherit;
