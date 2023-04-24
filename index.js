@@ -119,7 +119,6 @@ function renderCountryInfo(country, beforeState, options={}){
     //* + Initialize the current country.
     if (options.firstCountry) firstCountry = country
     currentCountry = country
-    console.log(country);
 
     countryInfo.innerHTML = `
     
@@ -199,8 +198,6 @@ function goBack() {
         countryInfo.innerHTML = ''
         renderCountries(lastCountriesSectionState)
     } else {
-        console.log(visitedCountries);
-        console.log(findCountry(visitedCountries[visitedCountries.length - 1].alpha3Code));
         renderCountryInfo(findCountry(visitedCountries[visitedCountries.length - 1].alpha3Code))
     }
 
