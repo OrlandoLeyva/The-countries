@@ -1,3 +1,4 @@
+//TODO: USE THE ALFA CODE RATHER THAN THE NAME TO IDENTIFY THE COUNTRIES
 import {data} from './data.js'
 
 
@@ -191,22 +192,18 @@ function setScrollPosition(){
 
 function goBack() {
     // Remove the current country from visited countries
-    
-    if (visitedCountries.length === 1) {
-        console.log('rendering all again');
-        visitedCountries.pop()
+    visitedCountries.pop()
+    if (visitedCountries.length === 0) {
         searchCountryForm.classList.remove('hidden')
         countriesSection.classList.remove('hidden')
         countryInfo.innerHTML = ''
         renderCountries(lastCountriesSectionState)
     } else {
-        console.log('rendering before country');
-        visitedCountries.pop()
-        // Render the before visited country
         console.log(visitedCountries);
-        console.log(findCountry(visitedCountries[visitedCountries.length - 1].name), true);
+        console.log(findCountry(visitedCountries[visitedCountries.length - 1].name));
         renderCountryInfo(findCountry(visitedCountries[visitedCountries.length - 1].name))
     }
+
 }
 
 function findCountry(countryName, validate=false){
