@@ -71,7 +71,7 @@ function renderCountries(countriesToRender) {
     let countryItems = '';
     countriesToRender.forEach( country => {
         countryItems += `
-            <div class="country-item flex ${getCurrentMode() == 'dark' ? 'bg-dark' : 'bg-light'}" data-country='${country.name}'>
+            <div class="country-item flex ${getCurrentMode() == 'dark' ? 'bg-dark' : 'bg-light'}" data-country='${country.alpha3Code}'>
                 <img class="flag" src="${country.flags.png}" alt="${country.name}' flag">
                 <div class="country-details">
                     <h2 class="country-text">${country.name}</h2>
@@ -178,7 +178,7 @@ function getBordersButtons(country){
     if (country.borders) {
         return country.borders.map(border => {
             const borderCountry = data.find(country => country.alpha3Code == border)
-            return `<button class='country-btn ${getCurrentMode() == 'dark' ? 'bg-dark' : 'bg-light'}' data-country='${borderCountry.name}'>${borderCountry.name}</button>`
+            return `<button class='country-btn ${getCurrentMode() == 'dark' ? 'bg-dark' : 'bg-light'}' data-country='${borderCountry.alpha3Code}'>${borderCountry.name}</button>`
         }).join('')
     }
     
@@ -200,15 +200,14 @@ function goBack() {
         renderCountries(lastCountriesSectionState)
     } else {
         console.log(visitedCountries);
-        console.log(findCountry(visitedCountries[visitedCountries.length - 1].name));
-        renderCountryInfo(findCountry(visitedCountries[visitedCountries.length - 1].name))
+        console.log(findCountry(visitedCountries[visitedCountries.length - 1].alpha3Code));
+        renderCountryInfo(findCountry(visitedCountries[visitedCountries.length - 1].alpha3Code))
     }
 
 }
 
-function findCountry(countryName, validate=false){
-    if (validate) console.log(countryName);
-    return data.find(country => country.name == countryName)
+function findCountry(countryAlpha3Code){
+    return data.find(country => country.alpha3Code == countryAlpha3Code)
 }
 
 renderCountries(data.slice(0, 20))
