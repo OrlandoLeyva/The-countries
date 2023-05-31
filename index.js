@@ -31,6 +31,12 @@ function getCurrentMode() {
     return selectMode.getAttribute('data-mode').toLocaleLowerCase()
 }
 
+function parsePopulation(population) {
+    const number = 123456789;
+    const formattedNumber = population.toLocaleString("en-US");
+    return formattedNumber
+}
+
 function changeMode(e){
     if (getCurrentMode() == 'dark'){
         //* Change background colors
@@ -75,13 +81,14 @@ function renderCountries(countriesToRender) {
                 <img class="flag" src="${country.flags.png}" alt="${country.name}' flag">
                 <div class="country-details">
                     <h2 class="country-text">${country.name}</h2>
-                    <p> <span class="detail">Population</span>: ${ country.population}</p>
+                    <p> <span class="detail">Population</span>: ${ parsePopulation(country.population)}</p>
                     <p> <span class="detail">Region</span>: ${country.region}</p>
                     <p> <span class="detail">Capital</span>: ${country.capital}</p>
                 </div>
             </div>
         `
     })
+    
     countriesSection.innerHTML = countryItems
     window.scrollTo(0, scrollPosition);
     document.querySelectorAll('.country-item').forEach(countryItem => countryItem.addEventListener('click', (e)=>{
@@ -134,7 +141,7 @@ function renderCountryInfo(country, beforeState, options={}){
                 <div class="primary-details flex">
                     <div>
                         <p> <span class="detail">Native Name</span>: ${country.nativeName}</p>
-                        <p> <span class="detail">Population</span>: ${country.population}</p>
+                        <p> <span class="detail">Population</span>: ${parsePopulation(country.population)}</p>
                         <p> <span class="detail">Region</span>: ${country.region}</p>
                         <p> <span class="detail">Sub Region</span>: ${country.subregion}</p>
                         <p> <span class="detail">Capital</span>: ${country.capital}</p>
