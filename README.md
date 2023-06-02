@@ -40,4 +40,4 @@ Users should be able to:
 
 ## Author
 
-- Website - [Orlando Lyva](https://orlando-leyva-portfolio.netlify.app/)
+- Website - [Orlando Leyva](https://orlando-leyva-portfolio.netlify.app/)
