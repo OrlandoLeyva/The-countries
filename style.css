@@ -80,7 +80,7 @@ select {
 /* set up the body */
 body {
     overflow-x: hidden;
-    font-family: var(--ff-primary);
+    /* font-family: var(--ff-primary); */
     font-size: var(--fs-small);
     font-weight: 300;
 }
@@ -97,6 +97,7 @@ body {
 
 main {
     width: 90%;
+    max-width: 1300px;
     margin: auto;
 }
 
